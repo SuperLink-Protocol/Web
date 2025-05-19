@@ -1,0 +1,11 @@
+{
+  "name": "superlink-web",
+  "version": "1.0.0",
+  "description": "SuperLink Web Extension",
+  "scripts": {
+    "generate-icons": "node generate-icons.js"
+  },
+  "dependencies": {
+    "sharp": "^0.32.1"
+  }
+} 

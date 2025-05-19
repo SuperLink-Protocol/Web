@@ -1,0 +1,347 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{minted}
+\usepackage{tcolorbox}
+\usepackage{fontawesome}
+
+% Page setup
+\geometry{a4paper, margin=1in, headheight=15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{SuperLink Documentation}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Title formatting
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{blue!70!black}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{blue!60!black}}
+  {\thesubsection}{1em}{}
+
+% Code listing setup
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue!70!black},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red!70!black},
+    backgroundcolor=\color{gray!10},
+    showstringspaces=false,
+    captionpos=b
+}
+
+% Custom boxes
+\newtcolorbox{infobox}{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=Information,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{warningbox}{
+    colback=red!5!white,
+    colframe=red!75!black,
+    title=Warning,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{codebox}{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    title=Code Example,
+    fonttitle=\bfseries
+}
+
+% Document info
+\title{\Huge\textbf{SuperLink Documentation}\\[0.5em]
+\large Cross-Platform Communication Protocol}
+\author{SuperLink Team\\[0.5em]
+\small\texttt{https://github.com/superlink}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\begin{infobox}
+SuperLink is a powerful browser extension that revolutionizes cross-platform communication through an innovative protocol system. It enables users to seamlessly interact with multiple social media and productivity platforms using a simple, intuitive protocol syntax.
+\end{infobox}
+
+\subsection{Key Features}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Universal Protocol:} Single protocol system for all supported platforms
+    \item \textbf{Smart Window Management:} Intelligent handling of platform windows
+    \item \textbf{Cross-Platform Messaging:} Seamless message forwarding between platforms
+    \item \textbf{Platform-Specific Optimizations:} Custom handling for each platform
+    \item \textbf{Security-First Design:} Built-in protection against unwanted triggers
+\end{itemize}
+
+\section{Protocol System}
+\subsection{Protocol Format}
+The SuperLink protocol uses a simple, intuitive format:
+\begin{codebox}
+superlink.<platform>.
+\end{codebox}
+
+Where:
+\begin{itemize}
+    \item \texttt{superlink.} is the protocol prefix
+    \item \texttt{<platform>} is the target platform identifier
+    \item The trailing dot (.) is required for activation
+\end{itemize}
+
+\subsection{Supported Platforms}
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Category} & \textbf{Platforms} & \textbf{Features} \\
+\midrule
+Messaging & WhatsApp, Telegram, Discord & Message forwarding, Chat context \\
+Social & Twitter, Facebook, Instagram & Content sharing, Status updates \\
+Productivity & Google Workspace, Notion & Document sharing, Collaboration \\
+Project Management & Trello, Asana & Task sharing, Team coordination \\
+\bottomrule
+\end{tabular}
+\caption{Supported Platforms and Features}
+\end{table}
+
+\section{Technical Architecture}
+\subsection{Core Components}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Content Script (content.js)}
+    \begin{itemize}
+        \item Protocol detection and validation
+        \item Input field monitoring
+        \item Platform-specific handlers
+        \item Event management
+    \end{itemize}
+    
+    \item \textbf{Background Script (background.js)}
+    \begin{itemize}
+        \item Window management
+        \item Protocol registration
+        \item Platform URL routing
+        \item Message forwarding
+    \end{itemize}
+    
+    \item \textbf{Manifest Configuration}
+    \begin{itemize}
+        \item Permission management
+        \item Content script rules
+        \item Protocol handler registration
+        \item Platform URL patterns
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Protocol Detection}
+\begin{codebox}
+\begin{lstlisting}[language=JavaScript]
+function detectSuperLink(text) {
+    // Strict protocol matching
+    const regex = /superlink\.([a-zA-Z0-9-]+)\.(?=\W|$)/;
+    const match = text.match(regex);
+    
+    // Ensure exact protocol match
+    if (match && text.trim() === `superlink.${match[1]}.`) {
+        return match[1];
+    }
+    return null;
+}
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Window Management}
+\begin{codebox}
+\begin{lstlisting}[language=JavaScript]
+// Window tracking
+const openWindows = new Map();
+const windowStates = new Map();
+const lastOpenTimes = new Map();
+
+// Platform-specific settings
+const PLATFORM_SETTINGS = {
+    telegram: {
+        cooldown: 5000,
+        forceNew: true
+    },
+    whatsapp: {
+        clearInput: true,
+        maintainContext: true
+    }
+};
+\end{lstlisting}
+\end{codebox}
+
+\section{Platform-Specific Features}
+\subsection{WhatsApp Integration}
+\begin{infobox}
+WhatsApp implementation includes special handling for its contenteditable input system and chat context preservation.
+\end{infobox}
+
+Key features:
+\begin{itemize}
+    \item \textbf{Input Clearing:} Specialized clearing mechanism for contenteditable elements
+    \item \textbf{Context Preservation:} Maintains chat context during protocol activation
+    \item \textbf{Message Forwarding:} Supports cross-platform message sharing
+    \item \textbf{Error Recovery:} Automatic recovery from input clearing failures
+\end{itemize}
+
+\subsection{Telegram Integration}
+\begin{infobox}
+Telegram implementation includes a cooldown system to prevent unwanted triggers while maintaining manual control.
+\end{infobox}
+
+Key features:
+\begin{itemize}
+    \item \textbf{Cooldown System:} 5-second cooldown between auto-opens
+    \item \textbf{Manual Control:} Direct protocol activation support
+    \item \textbf{Session Management:} Maintains login state
+    \item \textbf{Window Tracking:} Prevents duplicate windows
+\end{itemize}
+
+\section{Usage Guide}
+\subsection{Basic Usage}
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Open Platform:}
+    \begin{itemize}
+        \item Type \texttt{superlink.whatsapp.} in any input field
+        \item Wait for input clearing
+        \item Platform window will open automatically
+    \end{itemize}
+    
+    \item \textbf{Cross-Platform Messaging:}
+    \begin{itemize}
+        \item Open source platform (e.g., \texttt{superlink.whatsapp.})
+        \item Open target platform (e.g., \texttt{superlink.telegram.})
+        \item Use the extension's message forwarding feature
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Advanced Features}
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Feature} & \textbf{Usage} \\
+\midrule
+Protocol Activation & Type complete protocol with platform name \\
+Window Management & Automatic focus and position management \\
+Message Forwarding & Use extension's forwarding interface \\
+Platform Switching & Use different platform protocols \\
+\bottomrule
+\end{tabular}
+\caption{Advanced Feature Usage}
+\end{table}
+
+\section{Troubleshooting}
+\subsection{Common Issues}
+\begin{warningbox}
+If you encounter any of these issues, try the suggested solutions before reporting a bug.
+\end{warningbox}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Protocol Not Clearing}
+    \begin{itemize}
+        \item Ensure complete protocol with ending dot
+        \item Check for extra spaces or characters
+        \item Try refreshing the page
+    \end{itemize}
+    
+    \item \textbf{Telegram Not Opening}
+    \begin{itemize}
+        \item Wait for cooldown period (5 seconds)
+        \item Check if window is already open
+        \item Verify protocol format
+    \end{itemize}
+    
+    \item \textbf{Window Management Issues}
+    \begin{itemize}
+        \item Close and reopen platform window
+        \item Check for existing windows
+        \item Clear browser cache if needed
+    \end{itemize}
+\end{enumerate}
+
+\section{Development Guide}
+\subsection{Adding New Platforms}
+\begin{codebox}
+\begin{lstlisting}[language=JavaScript]
+// 1. Add platform URL
+const PLATFORMS = {
+    'newplatform': 'https://newplatform.com'
+};
+
+// 2. Add platform behavior
+const PLATFORM_BEHAVIOR = {
+    'newplatform': {
+        supportsMessaging: true,
+        supportsSharing: true
+    }
+};
+
+// 3. Update manifest permissions
+// manifest.json
+{
+    "host_permissions": [
+        "*://*.newplatform.com/*"
+    ]
+}
+\end{lstlisting}
+\end{codebox}
+
+\subsection{Modifying Behavior}
+Key files and their purposes:
+\begin{itemize}
+    \item \texttt{content.js}: Input handling and protocol detection
+    \item \texttt{background.js}: Window management and platform routing
+    \item \texttt{manifest.json}: Permissions and content script rules
+    \item \texttt{handler.html}: Protocol activation handling
+\end{itemize}
+
+\section{Security Considerations}
+\begin{warningbox}
+Security is a top priority in SuperLink's design. The following measures are implemented to ensure safe operation.
+\end{warningbox}
+
+\begin{itemize}
+    \item \textbf{Protocol Validation:} Strict protocol format checking
+    \item \textbf{Cooldown Systems:} Prevention of rapid window creation
+    \item \textbf{Input Sanitization:} Platform-specific input clearing
+    \item \textbf{Window Management:} Prevention of duplicate instances
+    \item \textbf{Error Handling:} Graceful recovery from failures
+\end{itemize}
+
+\section{Conclusion}
+SuperLink provides a robust and secure way to interact with multiple platforms through a simple protocol system. Its modular design and platform-specific optimizations make it a powerful tool for cross-platform communication.
+
+\begin{infobox}
+For the latest updates, bug reports, and feature requests, please visit our GitHub repository: \url{https://github.com/superlink}
+\end{infobox}
+
+\end{document} 

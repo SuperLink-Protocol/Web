@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SuperLink</title>
+  <style>
+    body {
+      width: 400px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .platform-button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: left;
+      margin: 2px 0;
+      font-size: 14px;
+    }
+    .platform-button:hover {
+      background-color: #45a049;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+    }
+    .message-history {
+      margin-top: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    .message-item {
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+    .message-item:last-child {
+      border-bottom: none;
+    }
+    .message-platform {
+      font-weight: bold;
+      color: #4CAF50;
+    }
+    .message-time {
+      color: #666;
+      font-size: 12px;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .tab {
+      padding: 8px 15px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+      border-bottom-color: #4CAF50;
+      color: #4CAF50;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .platform-category {
+      margin: 15px 0 5px 0;
+      font-weight: bold;
+      color: #333;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .platform-search {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .platform-list {
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+    .platform-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    .platform-list::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    .platform-list::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    .platform-list::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>SuperLink</h2>
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="platforms">Platforms</div>
+      <div class="tab" data-tab="history">Message History</div>
+    </div>
+
+    <div class="tab-content active" id="platforms">
+      <input type="text" class="platform-search" placeholder="Search platforms..." id="platformSearch">
+      <div class="platform-list" id="platformList">
+        <!-- Platform categories and buttons will be populated here -->
+      </div>
+      <div class="status">
+        <p>Type "superlink.platform-name." in any chat to open the mini browser!</p>
+        <p>Example: superlink.whatsapp., superlink.telegram., superlink.reddit.</p>
+      </div>
+    </div>
+
+    <div class="tab-content" id="history">
+      <div class="message-history" id="messageHistory">
+        <!-- Message history will be populated here -->
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 

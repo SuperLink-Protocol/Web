@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SuperLink Handler</title>
+    <script>
+        // Get the platform from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const platform = urlParams.get('platform');
+
+        // Send message to the extension
+        if (platform) {
+            chrome.runtime.sendMessage({
+                type: 'OPEN_MINI_BROWSER',
+                platform: platform
+            });
+        }
+
+        // Close this window after a short delay
+        setTimeout(() => {
+            window.close();
+        }, 100);
+    </script>
+</head>
+<body>
+    <p>Opening SuperLink...</p>
+</body>
+</html> 
